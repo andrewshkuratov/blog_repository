@@ -83,7 +83,7 @@ class User extends \yii\db\ActiveRecord
         if($this->image) {
             return '/uploads/' . $this->image;
         }
-        return '.../web/no-image.png';
+        return '/no-image.png';
     }
 
     public function deleteImage() {
