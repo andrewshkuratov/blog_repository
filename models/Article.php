@@ -37,12 +37,14 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description'], 'string'],
-            [['date'], 'safe'],
+            [['title','description','tag','topic_id','user_id'], 'required'],
+            [['title','description'], 'string'],
+            [['date'], 'date', 'format'=>'php:Y-m-d'],
+            [['date'], 'default', 'value'=>date('Y-m-d')],
+            [['viewed'], 'default', 'value'=>0],
             [['viewed', 'topic_id', 'user_id'], 'integer'],
-            [['title', 'image', 'tag'], 'string', 'max' => 255],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
-            [['topic_id'], 'exist', 'skipOnError' => true, 'targetClass' => Topic::class, 'targetAttribute' => ['topic_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['topic_id'], 'exist', 'skipOnError' => true, 'targetClass' => Topic::className(), 'targetAttribute' => ['topic_id' => 'id']],
         ];
     }
 
@@ -93,4 +95,13 @@ class Article extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
+
+    public function saveImage($filename){
+
+        $this->image = $filename;
+    
+        return $this->save(false);
+    
+    }
+    
 }
