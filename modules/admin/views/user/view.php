@@ -26,6 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
+    <?= Html::a('Set Image', ['set-image', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

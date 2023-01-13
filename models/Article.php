@@ -118,6 +118,6 @@ class Article extends \yii\db\ActiveRecord
         if($this->image) {
             return '/uploads/' . $this->image;
         }
-        return '/no-image.png';
+        return '.../web/no-image.png';
     }
 }

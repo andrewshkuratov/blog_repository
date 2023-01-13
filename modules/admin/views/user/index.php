@@ -33,12 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'login',
             'password',
-            'image',
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, User $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                'format' => 'html',
+                'label' => 'Image',
+                'value' => function($data) {
+                    return Html::img($data->getImage(), ['width'=>200]);
+                }
             ],
         ],
     ]); ?>
