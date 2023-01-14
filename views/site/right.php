@@ -16,7 +16,7 @@
 
 <?= $form->field($searchForm, 'text')->textInput(['class' => 'form-control serch', 'placeholder' => 'Search'])->label(false) ?>
 
-<button class="btn-serch" type="submit"><i class="fa fa-search"></i></button>
+<button class="btn-serch" type="submit"><i class="fa fa-search">Search</i></button>
 
 <?php \yii\widgets\ActiveForm::end() ?>
 
