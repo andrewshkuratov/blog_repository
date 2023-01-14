@@ -1,15 +1,13 @@
 <?php
 
-namespace app\modules\admin\controllers;
+namespace app\modules\user\controllers;
 
-use app\models\ImageUpload;
 use app\models\Article;
 use app\models\ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Yii;
-use yii\web\UploadedFile;
 
 /**
  * ArticleController implements the CRUD actions for Article model.
@@ -42,7 +40,9 @@ class ArticleController extends Controller
     public function actionIndex()
     {
         $searchModel = new ArticleSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $params['ArticleSearch']['user_id'] = Yii::$app->user->id;
+
+        $dataProvider = $searchModel->search($params);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -71,9 +71,10 @@ class ArticleController extends Controller
     public function actionCreate()
     {
         $model = new Article();
+        $this->check($id);
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->saveArticle()) {
+            if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -95,6 +96,7 @@ class ArticleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $this->check($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -115,6 +117,7 @@ class ArticleController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+        $this->check($id);
 
         return $this->redirect(['index']);
     }
@@ -133,6 +136,20 @@ class ArticleController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function check($id){
+
+        $model1 = $this->findModel($id);
+    
+        if ($model1->user_id != Yii::$app->user->id){
+    
+            throw new \yii\web\NotFoundHttpException();
+    
+        }
+    
+        return true;
+    
     }
     public function actionSetImage($id)
     {

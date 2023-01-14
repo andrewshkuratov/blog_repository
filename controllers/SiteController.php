@@ -13,6 +13,10 @@ use app\models\ContactForm;
 use app\models\Article;
 use app\models\Topic;
 use yii\helpers\Url;
+use app\models\Comment;
+
+use app\models\CommentForm;
+use app\models\SearchForm;
 
 
 class SiteController extends Controller
@@ -103,39 +107,6 @@ class SiteController extends Controller
 
 }
 
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
 
     /**
      * Displays contact page.
@@ -175,6 +146,23 @@ class SiteController extends Controller
     $recent = Article::find()->orderBy('date desc')->limit(3)->all();
     
     $topics = Topic::find()->all();
+    $article->viewedCounter();
+
+    $comments = $article->comments;
+
+$commentsParent = array_filter($comments, function ($k) {
+
+    return $k['comment_id'] == null;
+
+});
+
+$commentsChild = array_filter($comments, function ($k) {
+
+    return ($k['comment_id'] != null && !$k['delete']);
+
+});
+
+$commentForm = new CommentForm();
     
     return $this->render('single', [
     
@@ -185,6 +173,12 @@ class SiteController extends Controller
     'recent' => $recent,
     
     'topics' => $topics,
+
+    'commentsParent' => $commentsParent,
+
+    'commentsChild' => $commentsChild,
+    
+    'commentForm' => $commentForm,
     
     ]);
 }
@@ -231,6 +225,83 @@ public function actionTopic($id)
     'topics' => $topics,
     
     ]);
+
+}
+public function actionComment($id, $id_comment = null)
+{
+
+    $model = new CommentForm();
+
+    if (Yii::$app->request->isPost) {
+
+        $model->load(Yii::$app->request->post());
+
+        if ($model->saveComment($id, $id_comment)) {
+
+            return $this->redirect(['site/view', 'id' => $id]);
+
+        }
+
+    }
+
+}
+
+public function actionCommentDelete($id, $id_comment)
+{
+
+    if (Yii::$app->request->isPost) {
+
+        $data = Comment::findOne($id_comment);
+
+        if ($data->user_id == Yii::$app->user->id) {
+
+            $data->delete = true;
+
+            $data->save(false);
+
+        }
+
+        return $this->redirect(['site/view', 'id' => $id]);
+
+    }
+
+}
+
+public function actionSearch()
+
+{
+
+    $model = new SearchForm();
+    
+    if (Yii::$app->request->isGet) {
+    
+        $model->load(Yii::$app->request->get());
+        
+        $data = $model->SearchAtricle(3);
+        
+        $popular = Article::find()->orderBy('viewed desc')->limit(3)->all();
+        
+        $recent = Article::find()->orderBy('date desc')->limit(3)->all();
+        
+        $topics = Topic::find()->all();
+        
+        return $this->render('search',[
+        
+            'articles' => $data['articles'],
+            
+            'pagination' => $data['pagination'],
+            
+            'popular' => $popular,
+            
+            'recent' => $recent,
+            
+            'topics' => $topics,
+            
+            'search' => $model->text
+        
+        ]);
+
+    }
 
 }
 }
