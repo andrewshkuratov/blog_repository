@@ -29,7 +29,10 @@ a {
     color: white;
 }
 
-h1, h2, h5, h6 {
+h1,
+h2,
+h5,
+h6 {
     color: white;
     margin-top: 20px;
 }
@@ -84,7 +87,7 @@ h1, h2, h5, h6 {
     margin-top: 20px;
 }
 
-.footer > .container {
+.footer>.container {
     padding-right: 15px;
     padding-left: 15px;
     display: flex;
@@ -92,7 +95,8 @@ h1, h2, h5, h6 {
     align-content: space-between;
 }
 
-.pull-right, .pull-left {
+.pull-right,
+.pull-left {
     margin-right: 20px;
 }
 
@@ -157,17 +161,17 @@ input {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .pagination li {
+}
+
+.pagination li {
     color: black;
     float: left;
     padding: 5px 0px;
     text-decoration: none;
-  }
+}
 
 .entry-header h1 a:hover {
-    
+
     text-shadow: #212121;
 }
 
@@ -698,6 +702,18 @@ widget ul {
 
 }
 
-.decoration > a {
-    color:white;
+.decoration>a {
+    color: white;
+}
+
+tbody {
+    color: white !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) * {
+    color: white !important;
+}
+
+th {
+    color: white;
 }
