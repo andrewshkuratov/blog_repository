@@ -23,18 +23,15 @@ body {
     margin-top: 10px;
 }
 
-article {
-    /**border: 1px solid #eee;*/
-}
-
 a {
     text-decoration: none;
     display: inline-block;
     color: white;
 }
 
-h1 {
+h1, h2 {
     color: white;
+    margin-top: 20px;
 }
 
 .form-label {
@@ -78,6 +75,7 @@ h1 {
     -webkit-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column;
+    max-width: 100px;
 }
 
 .entry-header {
@@ -216,15 +214,26 @@ input {
 
     padding: 25px 0 20px;
 
+    display: flex;
+}
+
+.thumb-latest-posts {
+
+    border-bottom: 1px solid #eee;
+
+    padding: 25px 0 20px;
+
+    display: flex;
 }
 
 .popular-img {
 
     position: relative;
 
-    width: 100%;
+    width: 40%;
 
     margin-bottom: 15px;
+    margin-right: 10px;
 
 }
 
@@ -236,7 +245,7 @@ input {
 
 img {
 
-    max-width: 100%;
+    max-width: fit-content;
 
 }
 
@@ -641,4 +650,8 @@ widget ul {
 
     background: #0b7dda;
 
+}
+
+.decoration > a {
+    color:white;
 }

@@ -75,7 +75,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
     <div class="container">
 
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; SoundGalaxy <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
 

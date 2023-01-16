@@ -8,11 +8,12 @@ $this->title = 'About';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 class="title"><?= Html::encode($this->title) ?></h1>
 
     <p>
-        This is the About page. You may modify the following file to customize its content:
+        This website was made as a group project for Object-oriented Web Development course. </br>
+        Project team:</br> 
+        <p style="margin-left: 50px;">Bekker Dmytro;</br>Kiptenko Bogdan;</br>Shkuratov Andrew</p>
     </p>
 
-    <code><?= __FILE__ ?></code>
 </div>
