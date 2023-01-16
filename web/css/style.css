@@ -9,7 +9,7 @@ body {
 }
 
 .main-content {
-    margin-top: 50px;
+    margin-top: 55px;
 }
 
 .row {
@@ -29,7 +29,7 @@ a {
     color: white;
 }
 
-h1, h2 {
+h1, h2, h5, h6 {
     color: white;
     margin-top: 20px;
 }
@@ -38,16 +38,62 @@ h1, h2 {
     color: white;
 }
 
+/*home page*/
+
+.index-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.desc-container {
+    padding-top: 10px;
+    width: 400px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.img-container {
+    width: 400px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.img-index {
+    width: 100%;
+}
+
+.desc-title {
+    font-size: 20pt;
+    font-style: bold;
+}
+
+.desc-text {
+    font-size: 10pt;
+}
+
 /*footer*/
 .footer {
     background-color: transparent;
     font-size: .9em;
     height: 60px;
+    margin-top: 20px;
 }
 
 .footer > .container {
     padding-right: 15px;
     padding-left: 15px;
+    display: flex;
+    align-items: center;
+    align-content: space-between;
+}
+
+.pull-right, .pull-left {
+    margin-right: 20px;
 }
 
 .post-content {
